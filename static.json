@@ -1,14 +1,14 @@
 {
-  "T3P1": "occupied",
-  "T3P2": "available",
-  "T3P3": "occupied",
-  "T3P4": "available",
-  "T2P1": "available",
-  "T2P2": "occupied",
-  "T2P3": "available",
-  "T2P4": "available",
-  "T1P1": "occupied", 
-  "T1P2": "available",
-  "T1P3": "available",
-  "T1P4": "occupied"
+  "P301": "occupied",
+  "P302": "available",
+  "P303": "occupied",
+  "P304": "available",
+  "P201": "available",
+  "P202": "occupied",
+  "P203": "available",
+  "P204": "available",
+  "P101": "occupied", 
+  "P102": "available",
+  "P103": "available",
+  "P104": "occupied"
 }
