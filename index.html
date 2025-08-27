@@ -2,47 +2,53 @@
 <html lang="vi">
 <head>
   <meta charset="UTF-8">
-  <title>Nhà trọ Phước Lý - Bao Nam</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      margin: 20px;
-    }
-    .container {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-    }
-    .info {
-      width: 70%;
-      padding: 20px;
-      margin-bottom: 30px;
-      border: 2px solid #ccc;
-      border-radius: 8px;
-    }
-    .layout {
-      display: grid;
-      grid-template-columns: repeat(4, 80px); /* 4 phòng mỗi tầng */
-      grid-auto-rows: 80px;
-      gap: 0; /* sát nhau */
-      border: 2px solid #000;
-    }
-    .room {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      border: 1px solid #000;
-      font-weight: bold;
-      cursor: pointer;
-    }
-    .occupied {
-      background-color: #4CAF50; /* xanh lá */
-      color: white;
-    }
-    .available {
-      background-color: #fff;
-    }
-  </style>
+  <title>Nhà trọ Phước Lý - Bảo Nam</title>
+ <style>
+  body {
+    font-family: Calibri, sans-serif; /* toàn bộ dùng Calibri */
+    display: flex;
+    flex-direction: column; /* sắp xếp theo cột */
+    align-items: center;    /* canh giữa */
+    margin: 20px;
+    font-size: 1.3em;       /* toàn bộ chữ to hơn 1.5 lần */
+    line-height: 1.5;
+  }
+  .container {
+    width: 100%;
+    max-width: 800px; /* làm chuẩn theo info */
+  }
+  .layout {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr); /* 1 cột cho tầng + 4 cột phòng */
+    margin-top: 30px;
+    width: 100%; /* full bằng info */
+  }
+  .room, .floor-label {
+    aspect-ratio: 1 / 1; /* luôn là ô vuông */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #000;
+    cursor: pointer;
+    font-weight: bold;
+  }
+  .occupied {
+    background-color: #4CAF50; /* xanh lá */
+    color: white;
+  }
+  .available {
+    background-color: #fff;
+  }
+  .floor-label {
+    background-color: #f0f0f0;
+    font-weight: bold;
+  }
+  .info {
+    width: 100%;
+    padding: 20px;
+  }
+</style>
+
 </head>
 <body>
   <div class="container">
@@ -60,6 +66,13 @@
       layout.innerHTML = "";
 
       for (let floor = 3; floor >= 1; floor--) {
+        // thêm cột hiển thị số tầng
+        const floorLabel = document.createElement("div");
+        floorLabel.className = "floor-label";
+        floorLabel.textContent = floor;
+        layout.appendChild(floorLabel);
+
+        // thêm 4 phòng
         for (let r = 1; r <= 4; r++) {
           const roomId = `P${floor}${r.toString().padStart(2, "0")}`;
           const roomDiv = document.createElement("div");
