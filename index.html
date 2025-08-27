@@ -77,7 +77,7 @@
           const roomId = `P${floor}${r.toString().padStart(2, "0")}`;
           const roomDiv = document.createElement("div");
           roomDiv.className = "room " + (data[roomId] === "occupied" ? "occupied" : "available");
-          roomDiv.textContent = (floor === 1 && r === 1) ? "Xe" : roomId;
+          roomDiv.textContent = (floor === 1 && r === 1) ? "Nhà Xe" : roomId;
           layout.appendChild(roomDiv);
         }
       }
@@ -95,4 +95,5 @@
   </script>
 </body>
 </html>
+
 
