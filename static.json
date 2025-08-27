@@ -1,0 +1,14 @@
+{
+  "T3P1": "occupied",
+  "T3P2": "available",
+  "T3P3": "occupied",
+  "T3P4": "available",
+  "T2P1": "available",
+  "T2P2": "occupied",
+  "T2P3": "available",
+  "T2P4": "available",
+  "T1P1": "occupied", 
+  "T1P2": "available",
+  "T1P3": "available",
+  "T1P4": "occupied"
+}
