@@ -6,30 +6,34 @@
   <style>
     body {
       font-family: Arial, sans-serif;
-      display: flex;
-      justify-content: space-between;
       margin: 20px;
     }
-    .layout {
-      width: 50%;
-    }
-    .floor {
-      margin-bottom: 20px;
-    }
-    .rooms {
+    .container {
       display: flex;
-      gap: 10px;
+      flex-direction: column;
+      align-items: center;
+    }
+    .info {
+      width: 70%;
+      padding: 20px;
+      margin-bottom: 30px;
+      border: 2px solid #ccc;
+      border-radius: 8px;
+    }
+    .layout {
+      display: grid;
+      grid-template-columns: repeat(4, 80px); /* 4 phòng mỗi tầng */
+      grid-auto-rows: 80px;
+      gap: 0; /* sát nhau */
+      border: 2px solid #000;
     }
     .room {
-      width: 60px;
-      height: 60px;
       display: flex;
       align-items: center;
       justify-content: center;
-      border: 2px solid #000;
-      border-radius: 8px;
-      cursor: pointer;
+      border: 1px solid #000;
       font-weight: bold;
+      cursor: pointer;
     }
     .occupied {
       background-color: #4CAF50; /* xanh lá */
@@ -38,16 +42,13 @@
     .available {
       background-color: #fff;
     }
-    .info {
-      width: 45%;
-      padding: 20px;
-      border-left: 2px solid #ccc;
-    }
   </style>
 </head>
 <body>
-  <div class="layout" id="layout"></div>
-  <div class="info" id="info">Đang tải thông tin...</div>
+  <div class="container">
+    <div class="info" id="info">Đang tải thông tin...</div>
+    <div class="layout" id="layout"></div>
+  </div>
 
   <script>
     // Load trạng thái phòng
@@ -59,23 +60,13 @@
       layout.innerHTML = "";
 
       for (let floor = 3; floor >= 1; floor--) {
-        const floorDiv = document.createElement("div");
-        floorDiv.className = "floor";
-        floorDiv.innerHTML = `<h3>Tầng ${floor}</h3>`;
-
-        const roomsDiv = document.createElement("div");
-        roomsDiv.className = "rooms";
-
         for (let r = 1; r <= 4; r++) {
-          const roomId = `T${floor}P${r}`;
+          const roomId = `P${floor}${r.toString().padStart(2, "0")}`;
           const roomDiv = document.createElement("div");
           roomDiv.className = "room " + (data[roomId] === "occupied" ? "occupied" : "available");
-          roomDiv.textContent = r === 1 && floor === 1 ? "Xe" : roomId;
-          roomsDiv.appendChild(roomDiv);
+          roomDiv.textContent = (floor === 1 && r === 1) ? "Xe" : roomId;
+          layout.appendChild(roomDiv);
         }
-
-        floorDiv.appendChild(roomsDiv);
-        layout.appendChild(floorDiv);
       }
     }
 
