@@ -3,71 +3,65 @@
 <head>
   <meta charset="UTF-8">
   <title>Nhà trọ Bảo An</title>
- <style>
-  body {
-    font-family: Calibri, sans-serif; /* toàn bộ dùng Calibri */
-    display: flex;
-    flex-direction: column; /* sắp xếp theo cột */
-    align-items: center;    /* canh giữa */
-    margin: 20px;
-    font-size: 1.6em;       /* toàn bộ chữ to hơn 1.5 lần */
-    line-height: 1.5;
-  }
-  .container {
-    width: 100%;
-    max-width: 800px; /* làm chuẩn theo info */
-  }
-  .layout {
-    display: grid;
-    grid-template-columns: repeat(5, 1fr); /* 1 cột cho tầng + 4 cột phòng */
-    margin-top: 30px;
-    width: 100%; /* full bằng info */
-  }
-  .room, .floor-label {
-    aspect-ratio: 1 / 1; /* luôn là ô vuông */
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border: 1px solid #000;
-    cursor: pointer;
-    font-weight: bold;
-  }
-  .occupied {
-    background-color: #4CAF50; /* xanh lá */
-    color: white;
-  }
-  .available {
-    background-color: #fff;
-  }
-  .floor-label {
-    background-color: #f0f0f0;
-    font-weight: bold;
-  }
-  .info {
-    background-color: #cbeaf6;
-    width: 100%;
-    padding: 20px;
-  }
-.contact {
-      text-align: center;
-      margin-top: 20px;
+  <style>
+    body {
+      font-family: Calibri, sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin: 20px;
+      font-size: 1.6em;
+      line-height: 1.5;
     }
-    .btn {
-      display: inline-block;
-      margin: 10px;
-      padding: 12px 20px;
-      background: #3498db;
-      color: #fff;
-      text-decoration: none;
-      border-radius: 8px;
+    .container {
+      width: 100%;
+      max-width: 800px;
+    }
+    .layout {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      margin-top: 30px;
+      width: 100%;
+    }
+    .room, .floor-label {
+      aspect-ratio: 1 / 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid #000;
+      cursor: pointer;
       font-weight: bold;
-      transition: 0.3s;
     }
-    .btn:hover {
-      background: #2980b9;
+    .occupied {
+      background-color: #4CAF50;
+      color: white;
     }
-</style>
-
+    .available {
+      background-color: #fff;
+    }
+    .floor-label {
+      background-color: #f0f0f0;
+      font-weight: bold;
+    }
+    .info {
+      background-color: #cbeaf6;
+      width: 100%;
+      padding: 20px;
+    }
+    /* tooltip */
+    .tooltip {
+      position: absolute;
+      background: #333;
+      color: #fff;
+      padding: 6px 10px;
+      border-radius: 6px;
+      font-size: 0.8em;
+      pointer-events: none;
+      display: none;
+      white-space: nowrap;
+      z-index: 1000;
+    }
+  </style>
 </head>
 <body>
   <div class="container">
@@ -75,7 +69,12 @@
     <div class="layout" id="layout"></div>
   </div>
 
+  <!-- tooltip -->
+  <div id="tooltip" class="tooltip"></div>
+
   <script>
+    const tooltip = document.getElementById("tooltip");
+
     // Load trạng thái phòng
     async function loadRooms() {
       const res = await fetch("static.json");
@@ -85,24 +84,39 @@
       layout.innerHTML = "";
 
       for (let floor = 3; floor >= 1; floor--) {
-        // thêm cột hiển thị số tầng
         const floorLabel = document.createElement("div");
         floorLabel.className = "floor-label";
         floorLabel.textContent = floor;
         layout.appendChild(floorLabel);
 
-        // thêm 4 phòng
         for (let r = 1; r <= 4; r++) {
           const roomId = `P${floor}${r.toString().padStart(2, "0")}`;
           const roomDiv = document.createElement("div");
           roomDiv.className = "room " + (data[roomId] === "occupied" ? "occupied" : "available");
           roomDiv.textContent = (floor === 1 && r === 1) ? "Nhà Xe" : roomId;
+
+          // sự kiện click hiện tooltip
+          roomDiv.addEventListener("click", (e) => {
+            const statusText = data[roomId] === "occupied" ? "Đã cho thuê" : "Còn trống";
+            tooltip.textContent = statusText;
+            tooltip.style.display = "block";
+            tooltip.style.left = e.pageX + 15 + "px";
+            tooltip.style.top = e.pageY + 15 + "px";
+          });
+
           layout.appendChild(roomDiv);
         }
       }
     }
 
-    // Load thông tin nhà trọ
+    // ẩn tooltip khi click chỗ khác
+    document.addEventListener("click", (e) => {
+      if (!e.target.classList.contains("room")) {
+        tooltip.style.display = "none";
+      }
+    });
+
+    // Load thông tin
     async function loadInfo() {
       const res = await fetch("info.html");
       const html = await res.text();
@@ -114,6 +128,3 @@
   </script>
 </body>
 </html>
-
-
-
