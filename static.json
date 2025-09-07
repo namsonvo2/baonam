@@ -1,5 +1,5 @@
 {
-  "P301": "available",
+  "P301": "occupied",
   "P302": "available",
   "P303": "available",
   "P304": "available",
@@ -12,4 +12,5 @@
   "P103": "available",
   "P104": "available"
 }
+
 
