@@ -1,17 +1,18 @@
 {
   "P301": "occupied",
-  "P302": "available",
+  "P302": "occupied",
   "P303": "occupied",
   "P304": "occupied",
   "P201": "occupied",
   "P202": "occupied",
   "P203": "occupied",
-  "P204": "occupied",
+  "P204": "available",
   "P101": "available", 
-  "P102": "occupied",
+  "P102": "available",
   "P103": "available",
-  "P104": "available"
+  "P104": "occupied"
 }
+
 
 
 
