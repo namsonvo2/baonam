@@ -6,12 +6,13 @@
   "P201": "occupied",
   "P202": "occupied",
   "P203": "occupied",
-  "P204": "available",
-  "P101": "available", 
-  "P102": "available",
-  "P103": "available",
+  "P204": "occupied",
+  "P101": "occupied", 
+  "P102": "occupied",
+  "P103": "occupied",
   "P104": "occupied"
 }
+
 
 
 
